@@ -1,1 +1,6 @@
 test*.txt
+.DS_Store
+out/
+.idea/
+src/.DS_Store
+.vscode/

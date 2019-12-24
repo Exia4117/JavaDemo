@@ -1,4 +1,5 @@
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 class Obj {
     public volatile int number = 0;
@@ -9,6 +10,12 @@ class Obj {
 
     public void ADDPlusPlus() {
         number++;
+    }
+
+    AtomicInteger m = new AtomicInteger();
+
+    public void addAto() {
+        m.getAndIncrement();
     }
 }
 
@@ -26,6 +33,7 @@ public class JUC_Demo {
             new Thread(() -> {
                 for (int j = 0; j < 1000; j++) {
                     demo.ADDPlusPlus();
+                    demo.addAto();
                 }
             }, String.valueOf(i)).start();
 
@@ -34,7 +42,9 @@ public class JUC_Demo {
         while (Thread.activeCount() > 2){
             Thread.yield();
         }
-        System.out.println(Thread.currentThread().getName() + "\tfinally the number is \t" + demo.number);
+        System.out.println(Thread.currentThread().getName() + "\tn++ finally the number is \t" + demo.number);
+        System.out.println(Thread.currentThread().getName() + "\tAtomicInteger finally the number is \t" + demo.m);
+
     }
 
     //volatile可以保证可见性，及时通知其他线程，主内存的变量已经被修改

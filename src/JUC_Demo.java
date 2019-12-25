@@ -17,6 +17,14 @@ class Obj {
     public void addAto() {
         m.getAndIncrement();
     }
+//----------------CAS 自旋锁-----------
+//    public final int getAndAddInt(Object o, long offset, int delta) {
+//        int v;
+//        do {
+//            v = getIntVolatile(o, offset);
+//        } while (!weakCompareAndSetInt(o, offset, v, v + delta));
+//        return v;
+//    }
 }
 
 public class JUC_Demo {
